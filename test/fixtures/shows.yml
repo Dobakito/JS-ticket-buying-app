@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  artist: MyString
+  date: 2021-07-28 11:33:53
+  venue: MyString
+  image: MyString
+  tickets_left: 1
+  genre: one
+
+two:
+  artist: MyString
+  date: 2021-07-28 11:33:53
+  venue: MyString
+  image: MyString
+  tickets_left: 1
+  genre: two
