@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_28_163353) do
+ActiveRecord::Schema.define(version: 2021_07_28_213644) do
 
   create_table "genres", force: :cascade do |t|
     t.string "name"
@@ -20,13 +20,13 @@ ActiveRecord::Schema.define(version: 2021_07_28_163353) do
 
   create_table "shows", force: :cascade do |t|
     t.string "artist"
-    t.datetime "date"
     t.string "venue"
     t.string "image"
     t.integer "tickets_left"
     t.integer "genre_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "date"
     t.index ["genre_id"], name: "index_shows_on_genre_id"
   end
 

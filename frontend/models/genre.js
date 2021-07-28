@@ -3,3 +3,7 @@ class Genre {
     this.name = name
   }
 }
+
+
+
+// TODO: render genre buttons, add click eventlisteners 
