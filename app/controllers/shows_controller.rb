@@ -2,7 +2,7 @@ class ShowsController < ApplicationController
 
   def index
     @shows = Show.where(genre_id: params[:genre_id])
-    render json: @shows, except: [:created_at, :updated_at]
+    render json: @shows, except: %i[created_at updated_at]
   end
 
   def update
