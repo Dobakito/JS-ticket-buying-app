@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  resources :shows
-  resources :genres
+  resources :genres, only: %i[index] do
+    resources :shows, only: %i[index update]
+  end
 end

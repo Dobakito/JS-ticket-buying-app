@@ -9,20 +9,20 @@ class Genre {
     )
   }
   renderBtn(){
-  let navbar = document.querySelector('.navbar-start');
+  let container = document.querySelector('.buttons');
   let button = document.createElement('a')
-  button.className = button
+  button.className = "button is-primary"
   button.id = this.genre.id
   button.innerText = this.genre.name
   this.button = button
-  navbar.append(button)
+  container.append(button)
   }
 
-  addClickDectection(){
-  this.button.addEventListener("click", clickAction())
+  addClickDectection = () => {
+  this.button.addEventListener("click", this.clickAction)
   }
 
-  clickAction(){
+  clickAction = () => {
     const id = this.genre.id
     apiCall.fetchShowsByGenre(id).then(shows => console.log(shows))
   }
