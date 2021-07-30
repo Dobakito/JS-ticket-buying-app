@@ -9,17 +9,17 @@ class Genre {
     )
   }
   renderBtn(){
-  let container = document.querySelector('.buttons');
-  let button = document.createElement('a')
-  button.className = "button is-primary"
-  button.id = this.genre.id
-  button.innerText = this.genre.name
-  this.button = button
-  container.append(button)
+    let container = document.querySelector('.buttons');
+    let button = document.createElement('a')
+    button.className = "button is-primary"
+    button.id = this.genre.id
+    button.innerText = this.genre.name
+    this.button = button
+    container.append(button)
   }
 
   addClickDectection = () => {
-  this.button.addEventListener("click", this.clickAction)
+   this.button.addEventListener("click", this.clickAction)
   }
 
   clickAction = () => {
