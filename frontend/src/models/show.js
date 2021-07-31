@@ -1,46 +1,74 @@
 class Show {
+  static section = document.querySelector('#main')
+  static columns = document.querySelector('#boxs')
+  static boxColumn = document.querySelector('.column is-full')
+
   constructor(show) {
     this.show = show
-    this.renderShowCards()
+    this.renderShowBoxes()
     //this.ATCListener()
   }
+
   static parseShows(shows){
-    shows.forEach(show => new Show(show))
+    let prepareDOM = () => {
+        this.columns.className = "columns"
+        this.columns.innerHTML = ""
+        let newBoxColumn = document.createElement('div')
+        newBoxColumn.className = "column is-full"
+        this.columns.append(newBoxColumn)
+      };
+      shows.forEach(show => new Show(show))
+    };
+
+  renderShowBox(){
+    let box = document.createElement('div')
+    box.className = "box"
+    this.box = box
+    box.innerHTML = this.renderBoxHTML();
+    this.boxColumn.append(box)
   }
 
-  // renderShopCart(){}
-
-  prepareDOM(){
-    let section = document.querySelector('#main')
-    let container = document.querySelector('#welcome')
-    let columns
-    let cardColumn
-      if (container) {
-        container.remove()
-        columns = document.createElement('div')
-        columns.className = "columns"
-        cardColumn = document.createElement('div')
-        cardColumn.className = "column is-two-thirds"
-        cardColumn.id = "removable"
-        section.append('columns')
-        columns.append('cardColumn')
-    } else {
-        columns = document.querySelector('.columns')
-        cardColumn = document.querySelector('#removable')
-        cardColumn.remove()
-        newCards = document.createElement('div')
-        newCards.className = "column is-two-thirds"
-        newCards.id = "removable"
-        columns.append('newCards')
-    }
+  renderBoxHTML(){
+    return `
+      <div class="media-content">
+        <div class="content">
+        <p>
+          <strong>${this.show.artist}</strong>
+          <br>
+          <br>
+          <p class="subtitle">${this.show.venue}</p>
+        </p>
+    <article class="media">
+      <div class="media">
+        <figure class="image is-5by4">
+          <img src="${this.show.image}" alt="Image">
+        </figure>
+      </div>
+    </article>
+      <nav class="level">
+      <div class="level-item">
+        <div>
+        <p class="heading">Tickets Remaining</p>
+        <p class="subitle">${this.show.tickets_left}</p>
+        </div>
+      </div>
+        <div class="level-item">
+          <div>
+            <button class="button is-primary" id="atc">Add To Cart</button>
+          </div>
+        </div>
+      </nav>
+    </div>
+    </div>
+    `
   }
 
-  renderShowCards(){
-    prepareDOM();
-    // renderShopCart()
+  addToCartListener = () => {
+    this.box.addEventListener("click", e => this.reduceTicketsLeft(e))
+  }
+
+
+  reduceTicketsLeft = (e) => {
     
-
-
-
   }
 }
