@@ -6,7 +6,7 @@ class Show {
   constructor(show) {
     this.show = show
     this.renderShowBoxes()
-    //this.ATCListener()
+    this.addToCartListener()
   }
 
   static parseShows(shows){
@@ -23,6 +23,7 @@ class Show {
   renderShowBox(){
     let box = document.createElement('div')
     box.className = "box"
+    box.id = this.show.id
     this.box = box
     box.innerHTML = this.renderBoxHTML();
     this.boxColumn.append(box)
@@ -54,21 +55,23 @@ class Show {
       </div>
         <div class="level-item">
           <div>
-            <button class="button is-primary" id="atc">Add To Cart</button>
+            <button class="button is-primary" id="atc-${this.show.id}">Add To Cart</button>
           </div>
         </div>
       </nav>
     </div>
     </div>
     `
+    // ADD LOGIC TO DISABLE ADD TO CART BUTTON WHEN TIX LEFT IS 0
   }
 
   addToCartListener = () => {
-    this.box.addEventListener("click", e => this.reduceTicketsLeft(e))
+    let btn = document.querySelector(`#atc-${this.show.id}`)
+    btn.addEventListener("click", this.reduceTicketsLeft())
   }
 
 
-  reduceTicketsLeft = (e) => {
-    
+  reduceTicketsLeft = () => {
+    //apiCall to update tickets remaining 
   }
 }
