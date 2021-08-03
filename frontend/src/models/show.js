@@ -1,6 +1,6 @@
 class Show {
   static section = document.querySelector('#main')
-  static columns = document.querySelector('#boxs')
+  static columns = document.querySelector('#boxes')
   static boxColumn = document.querySelector('.column is-full')
 
   constructor(show) {
@@ -10,7 +10,7 @@ class Show {
   }
 
   static parseShows(shows){
-    let prepareDOM = () => {
+    function prepareDOM(){
         this.columns.className = "columns"
         this.columns.innerHTML = ""
         let newBoxColumn = document.createElement('div')
@@ -55,14 +55,13 @@ class Show {
       </div>
         <div class="level-item">
           <div>
-            <button class="button is-primary" id="atc-${this.show.id}">Add To Cart</button>
+            <button class="button is-primary" id="atc-${this.show.id}" ${this.isSoldOut() ? "disabled" : ""}>${this.isSoldOut() ? "Sold Out" : "Add To Cart"}</button>
           </div>
         </div>
       </nav>
     </div>
     </div>
     `
-    // ADD LOGIC TO DISABLE ADD TO CART BUTTON WHEN TIX LEFT IS 0
   }
 
   addToCartListener = () => {
@@ -72,6 +71,8 @@ class Show {
 
 
   reduceTicketsLeft = () => {
-    //apiCall to update tickets remaining 
+    //apiCall to update tickets remaining
   }
+
+  isSoldOut(){this.show.tickets_left < 1 ? true : false}
 }
