@@ -71,7 +71,9 @@ class Show {
 
 
   reduceTicketsLeft = () => {
-    //apiCall to update tickets remaining
+    let showID = this.show.id
+    let genreID = this.show.genre_id
+    apiCall.updateTicketsRemaining(genreID, showID).then(console.log(data))
   }
 
   isSoldOut(){this.show.tickets_left < 1 ? true : false}

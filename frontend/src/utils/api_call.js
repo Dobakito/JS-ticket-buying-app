@@ -8,5 +8,5 @@ class ApiCall {
 
   // addToCart = () =>
 
-  // updateTicketsRemaining = () =>
+  updateTicketsRemaining = (genreID, showID) => fetch(`${this.url}/genres/${genreID}/shows/${showID}`, {method: "PATCH", headers: {"Content-Type": "application/json", "Accept": "application/json"}}).then(response => response.json())
 }

@@ -23,7 +23,7 @@ class Genre {
   }
 
   clickAction = () => {
-    const id = this.genre.id
+    let id = this.genre.id
     apiCall.fetchShowsByGenre(id).then(shows => console.log(shows))
   }
 }
