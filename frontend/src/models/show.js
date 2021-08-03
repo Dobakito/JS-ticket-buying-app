@@ -20,8 +20,6 @@ class Show {
       shows.forEach(show => new Show(show))
     };
 
-  isSoldOut(){this.show.tickets_left < 1 ? true : false}
-
   renderShowBox(){
     let box = document.createElement('div')
     box.className = "box"
@@ -38,6 +36,7 @@ class Show {
         <p>
           <strong>${this.show.artist}</strong>
           <br>
+          <br>
           <p class="subtitle">${this.show.venue}</p>
         </p>
     <article class="media">
@@ -51,7 +50,7 @@ class Show {
       <div class="level-item">
         <div>
         <p class="heading">Tickets Remaining</p>
-        <p class="subitle" id="tl-${this.show.id}">${this.show.tickets_left}</p>
+        <p class="subitle">${this.show.tickets_left}</p>
         </div>
       </div>
         <div class="level-item">
@@ -67,21 +66,15 @@ class Show {
 
   addToCartListener = () => {
     let btn = document.querySelector(`#atc-${this.show.id}`)
-    btn.addEventListener("click", this.reduceTicketsLeft)
+    btn.addEventListener("click", this.reduceTicketsLeft())
   }
 
 
   reduceTicketsLeft = () => {
     let showID = this.show.id
     let genreID = this.show.genre_id
-    let newTicketsLeft = this.show.tickets_left - 1
-    apiCall.updateTicketsRemaining(genreID, showID, newTicketsLeft).then(updatedShow => console.log(updatedShow))
+    apiCall.updateTicketsRemaining(genreID, showID).then(console.log(data))
   }
 
-  updateTicketsLeft(updatedShow){
-    this.show = updatedShow
-    let tl = document.querySelector(`#tl-${this.show.id}`)
-    tl.innerText = this.show.tickets_left
-  }
-
+  isSoldOut(){this.show.tickets_left < 1 ? true : false}
 }

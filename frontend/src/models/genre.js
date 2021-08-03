@@ -24,7 +24,7 @@ class Genre {
 
   clickAction = () => {
     let id = this.genre.id
-    apiCall.fetchShowsByGenre(id).then(shows => Show.parseShows(shows))
+    apiCall.fetchShowsByGenre(id).then(shows => console.log(shows))
   }
 }
 
