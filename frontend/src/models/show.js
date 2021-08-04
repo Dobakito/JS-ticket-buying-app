@@ -6,26 +6,36 @@ class Show {
   }
 
   static parseShows(shows){
-    function createCards() {
+    function prepareDom() {
       let columns = document.getElementById("cards")
       columns.className = "columns"
       columns.innerHTML = ""
-      let newCardColumn = document.createElement('div')
-      newCardColumn.className = "column is-half"
-      newCardColumn.id = "card-container"
-      columns.append(newCardColumn)
+      let column1 = document.createElement('div')
+      column1.className = "column is-6"
+      column1.id = "card-container-1"
+      columns.append(column1)
+      let column2 = document.createElement('div')
+      column2.className = "column"
+      column2.id = "card-container-2"
+      columns.append(column2)
     };
-    createCards()
+    prepareDom()
     shows.forEach(show => new Show(show))
     };
 
   renderShowCards(){
-    let cardColumn = document.getElementById('card-container')
+    let column1 = document.getElementById('card-container-1')
+    let column2 = document.getElementById('card-container-2')
     let card = document.createElement('div')
+    this.card = card
     card.className = "card mb-4"
     card.id = this.show.id
     card.innerHTML = this.renderCardHTML()
-    cardColumn.append(card)
+    if (this.show.id % 2 == 0) {
+      column1.append(this.card)
+    } else {
+      column2.append(this.card)
+    }
   }
 
 
@@ -44,12 +54,15 @@ class Show {
       </div>
     </div>
     <div class="content">
-    <p class="heading">Date</p>
-    <time datetime="${this.show.date}">${this.show.date}</time>
-    <p class="heading">Tickets Remaining</p>
-    <p class="subitle" id="tl-${this.show.id}">${this.show.tickets_left}</p>
-      <br>
+      <p class="heading">Date</p>
+      <time datetime="${this.show.date}">${this.show.date}</time>
+      <p class="heading">Tickets Remaining</p>
+      <p class="subitle" id="tl-${this.show.id}">${this.show.tickets_left}</p>
+    </div>
+    <div class="card-footer">
+      <div class="card-footer-item">
        <button class="button is-primary" id="atc-${this.show.id}" ${this.show.tickets_left < 1 ? "disabled" : ""}>${this.show.tickets_left < 1 ? "Sold Out" : "Add To Cart"}</button>
+      </div>
     </div>
   </div>
 
