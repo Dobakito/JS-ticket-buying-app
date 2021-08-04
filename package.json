@@ -4,5 +4,5 @@
     "bulma-start": "^0.0.4",
     "ramda": "^0.27.1"
   }
-   "proxy": "localhost:3000",
+   "proxy": "http://localhost:3000",
 }

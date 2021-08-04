@@ -5,6 +5,8 @@ class ShowsController < ApplicationController
   end
 
   def update
-    @shows.update(tickets_left: @show.tickets_left - 1)
+    @show = Show.find(params[:id])
+    @show.update(tickets_left: @show.tickets_left - 1)
+    render json: @show
   end
 end

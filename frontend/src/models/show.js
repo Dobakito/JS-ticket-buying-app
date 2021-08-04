@@ -1,72 +1,66 @@
 class Show {
-  static section = document.querySelector('#main')
-  static columns = document.querySelector('#boxes')
-  static boxColumn = document.querySelector('.column is-full')
-
   constructor(show) {
     this.show = show
-    this.renderShowBoxes()
+    this.array
+    this.renderShowCardes()
     this.addToCartListener()
   }
 
   static parseShows(shows){
-    function prepareDOM(){
+      let columns = document.querySelector("#cards")
+        this.columns = columns
         this.columns.className = "columns"
         this.columns.innerHTML = ""
-        let newBoxColumn = document.createElement('div')
-        newBoxColumn.className = "column is-full"
-        this.columns.append(newBoxColumn)
-      };
+        let newCardColumn = document.createElement('div')
+        newCardColumn.className = "column is-half"
+        newCardColumn.id = "card-container"
+        this.columns.append(newCardColumn)
+
       shows.forEach(show => new Show(show))
     };
 
-  renderShowBox(){
-    let box = document.createElement('div')
-    box.className = "box"
-    box.id = this.show.id
-    this.box = box
-    box.innerHTML = this.renderBoxHTML();
-    this.boxColumn.append(box)
+  renderShowCardes(){
+    let cardColumn = document.getElementById('card-container')
+    let card = document.createElement('div')
+    card.className = "card"
+    card.id = this.show.id
+    card.innerHTML = this.renderCardHTML()
+    cardColumn.append(card)
   }
 
-  renderBoxHTML(){
+
+  renderCardHTML(){
     return `
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img src="${this.show.image}" alt="Placeholder image">
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="media">
       <div class="media-content">
-        <div class="content">
-        <p>
-          <strong>${this.show.artist}</strong>
-          <br>
-          <br>
-          <p class="subtitle">${this.show.venue}</p>
-        </p>
-    <article class="media">
-      <div class="media">
-        <figure class="image is-5by4">
-          <img src="${this.show.image}" alt="Image">
-        </figure>
+        <p class="title is-4">${this.show.artist}</p>
+        <p class="subtitle is-6">${this.show.venue}</p>
       </div>
-    </article>
-      <nav class="level">
-      <div class="level-item">
-        <div>
-        <p class="heading">Tickets Remaining</p>
-        <p class="subitle">${this.show.tickets_left}</p>
-        </div>
-      </div>
-        <div class="level-item">
-          <div>
-            <button class="button is-primary" id="atc-${this.show.id}" ${this.isSoldOut() ? "disabled" : ""}>${this.isSoldOut() ? "Sold Out" : "Add To Cart"}</button>
-          </div>
-        </div>
-      </nav>
     </div>
+    <div class="content">
+    <p class="heading">Date</p>
+    <time datetime="${this.show.date}">${this.show.date}</time>
+    <br>
+    <p class="heading">Tickets Remaining</p>
+    <p class="subitle">${this.show.tickets_left}</p>
+      <br>
+       <button class="button is-primary" id="atc-${this.show.id}" ${this.isSoldOut() ? "disabled" : ""}>${this.isSoldOut() ? "Sold Out" : "Add To Cart"}</button>
     </div>
+  </div>
     `
   }
 
+
+
   addToCartListener = () => {
     let btn = document.querySelector(`#atc-${this.show.id}`)
-    btn.addEventListener("click", this.reduceTicketsLeft())
+    btn.addEventListener("click", this.reduceTicketsLeft)
   }
 
 
@@ -77,4 +71,5 @@ class Show {
   }
 
   isSoldOut(){this.show.tickets_left < 1 ? true : false}
+
 }
