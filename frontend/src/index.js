@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => (
   Genre.getGenres(),
+  Show.renderCartPanel(),
   stopIconClick()
 ));
 
 function stopIconClick() {
-  let icon = document.querySelector('#logo')
+  let icon = document.getElementById('logo')
   icon.addEventListener("click", function(e) {
     e.preventDefault()
   });

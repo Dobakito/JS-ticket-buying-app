@@ -7,21 +7,37 @@ class Show {
 
   static parseShows(shows){
     function prepareDom() {
-      let columns = document.getElementById("cards")
-      columns.className = "columns"
-      columns.innerHTML = ""
-      let column1 = document.createElement('div')
-      column1.className = "column is-6"
+    if (document.getElementById("cards") === undefined) {
+      let column1 = document.getElementById("card-container-1")
+      let column2 = document.getElementById("card-container-2")
+      column1.innerHTML = ""
+      column2.innerHTML = ""
+    } else {
+      let spacer = document.getElementById('spacer')
+      spacer.remove()
+      let column1 = document.getElementById("cards")
+      column1.innerHTML = ""
       column1.id = "card-container-1"
-      columns.append(column1)
+      column1.className = "column is-one-third"
       let column2 = document.createElement('div')
-      column2.className = "column"
+      column2.className = "column is-one-third"
       column2.id = "card-container-2"
-      columns.append(column2)
+      column1.after(column2)
+      let cartColumn = document.getElementById('cart-column')
+      cartColumn.className = "column is-one-third"
+      }
     };
     prepareDom()
     shows.forEach(show => new Show(show))
-    };
+  };
+
+  static renderCartPanel(){
+    let column3 = document.getElementById("cart-column")
+    let panel = document.createElement('article')
+    panel.className = "panel is-primary"
+    panel.innerHTML = this.panelHTML()
+    column3.append(panel)
+  }
 
   renderShowCards(){
     let column1 = document.getElementById('card-container-1')
@@ -38,6 +54,42 @@ class Show {
     }
   }
 
+  addToCartListener = () => {
+    let btn = document.querySelector(`#atc-${this.show.id}`)
+    btn.addEventListener("click", this.reduceTicketsLeft)
+  }
+
+  reRenderShowTix(show){
+    this.show = show
+    let tl = document.getElementById(`tl-${this.show.id}`)
+    tl.innerHTML = ""
+    tl.innerHTML = this.show.tickets_left
+  }
+
+
+  reduceTicketsLeft = () => {
+    let showID = this.show.id
+    let genreID = this.show.genre_id
+    apiCall.updateTicketsRemaining(genreID, showID).then(show => this.reRenderShowTix(show))
+  }
+
+  addShowToCartPanel(){
+
+  }
+
+  static panelHTML(){
+    return `
+    <p class="panel-heading" id="heading">
+      <span class="icon is-small">
+        <img src="https://img.icons8.com/material/48/000000/shopping-cart--v1.png"/>
+      </span>
+      Shopping Cart
+    </p>
+    <a class="panel-block" id="checkout-panel">
+      <button class="button is-primary" id="checkout">Checkout</button>
+    </a>
+      `
+  }
 
   renderCardHTML(){
     return `
@@ -68,26 +120,4 @@ class Show {
 
     `
   }
-
-  addToCartListener = () => {
-    let btn = document.querySelector(`#atc-${this.show.id}`)
-    btn.addEventListener("click", this.reduceTicketsLeft)
-  }
-
-  reRenderShowTix(show){
-    this.show = show
-    let tl = document.getElementById(`tl-${this.show.id}`)
-    tl.innerHTML = ""
-    tl.innerHTML = this.show.tickets_left
-  }
-
-  reduceTicketsLeft = () => {
-    let showID = this.show.id
-    let genreID = this.show.genre_id
-    apiCall.updateTicketsRemaining(genreID, showID).then(show => this.reRenderShowTix(show))
-  }
-
-  isSoldOut(){this.show.tickets_left < 1 ? true : false}
-  //<button class="button is-primary" id="atc-${this.show.id}" ${this.show.tickets_left < 1 ? "disabled" : ""}>${this.show.tickets_left < 1 ? "Sold Out" : "Add To Cart"}</button>
-
 }

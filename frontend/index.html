@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="node_modules/bulma/css/bulma.css">
   </head>
   <body>
-  <nav class="navbar is-info is-spaced" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-link is-spaced" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://assets.materialup.com">
         <img id="logo" src="https://assets.materialup.com/uploads/b7f058a7-567b-4e9c-a005-737bf7ae9d1a/preview.jpg" width="90" height="60">
@@ -21,16 +21,23 @@
       </div>
     </div>
   </nav>
-  <section class="section" id="main">
-    <div class="container" id="cards">
+  <div class="columns" id="main">
+    <div class="column is-half" id="cards">
       <h1 class="title">
         Welcome to Ticket Buyer!
       </h1>
       <h2 class="subtitle">
         Please select a genre above to begin shopping for show tickets.
       </h2>
+      <figure class="image is-5by5">
+        <img src="https://welcomepage444.s3.us-east-2.amazonaws.com/6.17.18-Odesza-%40-Red-Rocks-Photography-by-Ryan-Lewis-7.jpg">
+      </figure>
     </div>
-  </section>
+    <div class="column" id="spacer">
+    </div>
+    <div class="column is-one-third" id="cart-column">
+    </div>
+  </div>
     <script type="text/javascript" src="src/models/genre.js"></script>
     <script type="text/javascript" src="src/utils/api_call.js"></script>
     <script type="text/javascript" src="src/models/show.js"></script>
