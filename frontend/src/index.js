@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => (
   Genre.getGenres(),
   Show.renderCartPanel(),
+  Show.checkoutListener(),
   stopIconClick()
 ));
 
